@@ -68,7 +68,7 @@ export default function StockPage() {
     }
 
     return (
-        <Box sx={{ display:'flex', flex:1 , backgroundColor: '#fff' }}>
+        <Box sx={{ display:'flex', flex:1    , backgroundColor: '#fff' }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} size={8}>
                     <ProductTable products={products} onRowClick={handleProductClick} />
