@@ -1,4 +1,3 @@
-import './App.css'
 import StockPage from "./stockPage/StockPage";
 import Layout from "./commonComponents/Layout";
 

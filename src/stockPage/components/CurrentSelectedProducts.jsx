@@ -4,7 +4,7 @@ import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow}
 export default function CurrentSelectedProducts({ products, onRowClick }) {
 
     return (<TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} size='small'>
+        <Table size='small'>
             <TableHead>
                 <TableRow>
                     <TableCell>Product Name</TableCell>

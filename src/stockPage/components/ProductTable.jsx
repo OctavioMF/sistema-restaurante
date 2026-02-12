@@ -3,7 +3,7 @@ import {TableContainer, Table, TableBody, TableHead, TableCell, TableRow, Paper}
 export default function ProductTable({products, onRowClick}) {
 
     return (<TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} size='small'>
+        <Table size='small'>
             <TableHead>
                 <TableRow>
                     <TableCell>Product Name</TableCell>
