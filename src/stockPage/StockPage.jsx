@@ -15,21 +15,21 @@ export default function StockPage() {
         {name:'Queso cremoso', price:278, stock:20 },
         {name:'Taza', price:1000, stock:130 },
         {name:'Dulce de leche', price:10, stock:271 },
-        {name:'CocaCola', price:500, stock:100 },
-        {name:'Leche', price:200, stock:50 },
-        {name:'Queso cremoso', price:278, stock:20 },
-        {name:'Taza', price:1000, stock:130 },
-        {name:'Dulce de leche', price:10, stock:271 },
-        {name:'CocaCola', price:500, stock:100 },
-        {name:'Leche', price:200, stock:50 },
-        {name:'Queso cremoso', price:278, stock:20 },
-        {name:'Taza', price:1000, stock:130 },
-        {name:'Dulce de leche', price:10, stock:271 },
-        {name:'CocaCola', price:500, stock:100 },
-        {name:'Leche', price:200, stock:50 },
-        {name:'Queso cremoso', price:278, stock:20 },
-        {name:'Taza', price:1000, stock:130 },
-        {name:'Dulce de leche', price:10, stock:271 },
+        {name:'Fanta', price:500, stock:100 },
+        {name:'Queso crema', price:200, stock:50 },
+        {name:'Surtido Bagley', price:278, stock:20 },
+        {name:'Leche descremada', price:1000, stock:130 },
+        {name:'Mantel individual', price:10, stock:271 },
+        {name:'Agua Mineral', price:500, stock:100 },
+        {name:'Agua con gas', price:200, stock:50 },
+        {name:'Coca cero', price:278, stock:20 },
+        {name:'Pepas Trio', price:1000, stock:130 },
+        {name:'Jugo Tang Multifruta', price:10, stock:271 },
+        {name:'Jugo Bagio Mulltifruta', price:500, stock:100 },
+        {name:'Alfajor Pepitos', price:200, stock:50 },
+        {name:'Alfajor Terrabusi', price:278, stock:20 },
+        {name:'Alfajor Gula', price:1000, stock:130 },
+        {name:'Alfajor Gula Blanco  ', price:10, stock:271 },
     ]);
 
     const handleSelectedProductsClick = (productName) => {
@@ -86,7 +86,7 @@ export default function StockPage() {
     return (
         <Box sx={{
             display: 'flex',
-            height: '100vh',
+            height: '100%',
             width: '100%',
             backgroundColor: '#1e1e1e',
             p: 2,
@@ -134,7 +134,7 @@ export default function StockPage() {
                             <CurrentSelectedProducts products={selectedProducts} onRowClick={handleSelectedProductsClick} />
                         </Box>
                         <Box>
-                            <PaymentSection />
+                            <PaymentSection products={selectedProducts} onRowClick={handleProductClick} />
                         </Box>
                     </Paper>
                 </Grid>

@@ -26,6 +26,7 @@ const drawerWidth = 180;
 export default function Layout({children}) {
     return (
         <Box sx={{ display: 'flex', height:'100vh', backgroundColor: '#1e1e1e' }}>
+            <CssBaseline />
             <Drawer
                 sx={{
                     width: drawerWidth,

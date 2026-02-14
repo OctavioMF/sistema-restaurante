@@ -3,6 +3,10 @@ import Typography from "@mui/material/Typography";
 
 
 export default function PaymentSection({ products, onRowClick }) {
+
+    const calculateTotal = products.reduce((total, item) => total + item.price*item.quantity, 0);
+
+
     return (<Stack spacing={2} sx={{ mt: 2 }}>
 
         {/* Método de Pago */}
@@ -25,7 +29,7 @@ export default function PaymentSection({ products, onRowClick }) {
 
         {/* Total Gigante */}
         <Typography variant="h4" align="center" sx={{ color: '#4caf50', fontWeight: 'bold', letterSpacing: 1 }}>
-            TOTAL: $0.00
+            TOTAL: {calculateTotal.toFixed(2)}
         </Typography>
 
         {/* Botones de Acción */}

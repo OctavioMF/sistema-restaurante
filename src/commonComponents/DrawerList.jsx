@@ -11,7 +11,7 @@ import MailIcon from '@mui/icons-material/Mail';
 
 export default function DrawerList() {
     return (<List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Mesas', 'Productos', 'Dashboard'].map((text, index) => (
             <ListItem key={text} disablePadding>
                 <ListItemButton>
                     <ListItemIcon>
