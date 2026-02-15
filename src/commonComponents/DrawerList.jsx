@@ -1,24 +1,34 @@
-import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import NestedListOptions from './NestedListOptions';
 
+const menuItems = [
+    {
+        title: 'Mesas',
+        path: '/mesas',
+        children: []
+    },
+    {
+        title: 'Productos',
+        children: [
+            { title: 'Venta', path: '/productos/ventas' },
+            { title: 'Listado', path: '/productos/listado' }
+        ]
+    },
+    {
+        title: 'Dashboard',
+        path: '/',
+        children: []
+    }
+];
 
 
 export default function DrawerList() {
-    return (<List>
-        {['Mesas', 'Productos', 'Dashboard'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-                <ListItemButton>
-                    <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                </ListItemButton>
+    return (
+    <List sx={{width:'100%'}}>
+        {menuItems.map((item, index) => (
+            <ListItem key={index} disablePadding>
+                <NestedListOptions item={item}></NestedListOptions>
             </ListItem>
         ))}
     </List>)
