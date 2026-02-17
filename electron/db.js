@@ -2,11 +2,9 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const { app } = require('electron');
 
-// 1. Conexión (si no existe el archivo, lo crea automáticamente)
 const dbPath = path.join(app.getPath('userData'), 'restaurante.db');
-const db = new Database(dbPath, { verbose: console.log }); // verbose para ver las queries en consola
+const db = new Database(dbPath, { verbose: console.log });
 
-// 2. Crear tablas (usamos .exec para scripts SQL directos)
 const migration = `
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,12 +17,10 @@ const migration = `
 `;
 db.exec(migration);
 
-// 3. Insertar datos iniciales si está vacío
 const count = db.prepare('SELECT count(*) as count FROM products').get().count;
 if (count === 0) {
     const insert = db.prepare('INSERT INTO products (code, name, price, stock, lote) VALUES (@code ,@name, @price, @stock, @lote)');
 
-    // better-sqlite3 permite transacciones súper fáciles
     const insertMany = db.transaction((products) => {
         for (const product of products) insert.run(product);
     });
@@ -44,17 +40,28 @@ if (count === 0) {
     console.log('Datos iniciales insertados con éxito.');
 }
 
-// --- FUNCIONES EXPORTADAS (Síncronas) ---
 
-function obtenerProductos() {
-    // .all() retorna un array de objetos directamente
+function getProducts() {
     return db.prepare('SELECT * FROM products').all();
 }
 
-function actualizarStock(name, nuevoStock) {
-    // .run() ejecuta la acción y retorna info sobre cambios (changes)
-    const info = db.prepare('UPDATE products SET stock = ? WHERE name = ?').run(nuevoStock, name);
+function updateStock(name, newStock) {
+    const info = db.prepare('UPDATE products SET stock = ? WHERE name = ?').run(newStock, name);
     return info.changes;
 }
 
-module.exports = { obtenerProductos, actualizarStock };
+function createProduct(product) {
+    const sql = db.prepare('INSERT INTO products (code, name, price, stock, lote) VALUES (@code ,@name, @price, @stock, @lote)');
+
+    const info = sql.run({
+        code: product.code,
+        name: product.name,
+        price: product.price,
+        stock: product.stock,
+        lote: product.lote,
+    });
+
+    return info.changes;
+}
+
+module.exports = { getProducts, updateStock, createProduct };

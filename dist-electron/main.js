@@ -1,7 +1,7 @@
 "use strict";
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const { obtenerProductos, actualizarStock } = require("./db");
+const { getProducts, updateStock } = require("./db");
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
@@ -31,7 +31,16 @@ app.whenReady().then(() => {
       return [];
     }
   });
-  ipcMain.handle("update-stock", (event, name, newStock) => {
+  ipcMain.handle("update-stock", (event, name, newStock2) => {
+    try {
+      const cambios = actualizarStock(name, newStock2);
+      return { success: true, changes: cambios };
+    } catch (err) {
+      console.error("Error DB:", err);
+      return { success: false, error: err.message };
+    }
+  });
+  ipcMain.handle("create-product", (event, code, name, price, stock, lote) => {
     try {
       const cambios = actualizarStock(name, newStock);
       return { success: true, changes: cambios };

@@ -16,7 +16,7 @@ export default function StockPage() {
     return (
         <Box sx={{width:'100%', height:'100%'}}>
            <Paper sx={{display:'flex',justifyContent:'space-between' ,flexDirection: 'column', height: '100%', p:2}}>
-               <Box sx={{pb:2}}>
+               <Box sx={{pb:2, display: 'flex', flexDirection: 'row', justifyContent:'space-between'}}>
                    <ProductSearch filter={filter} handleChange={handleChange}/>
                    <AddProductModal></AddProductModal>
                </Box>
