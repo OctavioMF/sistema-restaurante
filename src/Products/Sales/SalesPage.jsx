@@ -1,14 +1,14 @@
-import ProductTable from "./components/ProductTable";
+import ProductTable from "./Components/ProductTable";
 import {useEffect, useState} from "react";
-import CurrentSelectedProducts from "./components/CurrentSelectedProducts";
-import PaymentSection from "./components/PaymentSection";
+import CurrentSelectedProducts from "./Components/CurrentSelectedProducts";
+import PaymentSection from "./Components/PaymentSection";
 import {Box, Grid, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import ProductSearch from "./components/ProductSearch";
+import ProductSearch from "./Components/ProductSearch";
 
 const { ipcRenderer } = window.require('electron');
 
-export default function StockPage() {
+export default function SalesPage() {
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [products, setProducts] = useState([]);
 
@@ -82,48 +82,43 @@ export default function StockPage() {
             display: 'flex',
             height: '100%',
             width: '100%',
-            backgroundColor: '#1e1e1e',
             p: 2,
             boxSizing: 'border-box'
         }}>
-            <Grid container spacing={2} sx={{ height: '100%' , width: '100%'}}>
+            <Grid container spacing={2} sx={{ width: '100%'}}>
 
-                <Grid item size={7} sx={{ height: '90%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Grid item size={7} sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
 
                     <ProductSearch></ProductSearch>
 
                     <Paper sx={{
                         flex: 1,
-                        backgroundColor: '#2d2d2d',
-                        color: 'white',
                         overflow: 'hidden',
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
-
                         <ProductTable products={products} onRowClick={handleProductClick} />
 
                     </Paper>
                 </Grid>
 
-                <Grid item size={5} sx={{ height: '90%' }}>
+                <Grid item size={5} sx={{ height: '100%' }}>
                     <Paper sx={{
                         height: '100%',
-                        backgroundColor: '#2d2d2d',
                         p: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between'
                     }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                            <Typography variant="body2" color="white" fontWeight="bold">TICKET DE VENTA</Typography>
+                            <Typography variant="body2" fontWeight="bold">TICKET DE VENTA</Typography>
                         </Box>
                         <Box sx={{
                             flex: 1,
                             minHeight: 0,
                             overflowY: 'auto',
                             mb: 0,
-                            border: '1px solid #444', borderRadius: 1
+                            borderRadius: 1
                         }}>
                             <CurrentSelectedProducts products={selectedProducts} onRowClick={handleSelectedProductsClick} />
                         </Box>
