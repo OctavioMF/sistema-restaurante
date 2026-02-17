@@ -31,27 +31,41 @@ const columns = [
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-export default function ExpandedProductTable() {
+export default function ExpandedProductTable({filter}) {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        cargarProductos();
+        loadProducts();
     }, []);
 
-    const cargarProductos = async () => {
-        const productosDb = await ipcRenderer.invoke('get-products');
-        setProducts(productosDb);
+    const loadProducts = async () => {
+        const productsDb = await ipcRenderer.invoke('get-products');
+        setProducts(productsDb);
     };
 
+    const filteredProducts = products.filter((products) => {
+        if(!filter) return true;
+
+        const lFilter = filter.toLowerCase();
+
+        return (
+            products.name.toLowerCase().includes(lFilter) ||
+            products.code.toLowerCase().includes(lFilter)
+        );
+
+    })
+
     return (
-        <Paper  sx={{width: '100%', height: '100%', backgroundColor: '#000' }}>
+        <Paper sx={{width: '100%', height: '100%' }}>
             <DataGrid
-                rows={products}
+                rows={filteredProducts}
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10]}
-                checkboxSelection
                 sx={{ border: 0 }}
+                disableRowSelectionOnClick
+                density={"compact"}
+                autoPageSize={true}
             />
         </Paper>
     );
