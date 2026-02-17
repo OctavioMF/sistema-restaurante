@@ -4,21 +4,26 @@ import CurrentSelectedProducts from "./Components/CurrentSelectedProducts";
 import PaymentSection from "./Components/PaymentSection";
 import {Box, Grid, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import ProductSearch from "./Components/ProductSearch";
+import ProductSearch from "../../Common/ProductSearch";
 
 const { ipcRenderer } = window.require('electron');
 
 export default function SalesPage() {
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [products, setProducts] = useState([]);
+    const [filter, setFilter]= useState("");
 
     useEffect(() => {
-        cargarProductos();
+        loadProducts();
     }, []);
 
-    const cargarProductos = async () => {
-        const productosDb = await ipcRenderer.invoke('get-products');
-        setProducts(productosDb);
+    const handleChange = (event) => {
+        setFilter(event.target.value);
+    }
+
+    const loadProducts = async () => {
+        const productsDb = await ipcRenderer.invoke('get-products');
+        setProducts(productsDb);
     };
 
     const handleSelectedProductsClick = (productName) => {
@@ -89,7 +94,7 @@ export default function SalesPage() {
 
                 <Grid item size={7} sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-                    <ProductSearch></ProductSearch>
+                    <ProductSearch filter={filter} handleChange={handleChange} />
 
                     <Paper sx={{
                         flex: 1,
@@ -97,7 +102,7 @@ export default function SalesPage() {
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
-                        <ProductTable products={products} onRowClick={handleProductClick} />
+                        <ProductTable products={products} onRowClick={handleProductClick} filter={filter} />
 
                     </Paper>
                 </Grid>

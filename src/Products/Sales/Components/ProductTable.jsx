@@ -1,6 +1,18 @@
 import {TableContainer, Table, TableBody, TableHead, TableCell, TableRow, Paper} from "@mui/material";
 
-export default function ProductTable({products, onRowClick}) {
+export default function ProductTable({products, onRowClick, filter}) {
+
+    const filteredProducts = products.filter((products) => {
+        if(!filter) return true;
+
+        const lFilter = filter.toLowerCase();
+
+        return (
+            products.name.toLowerCase().includes(lFilter) ||
+            products.code.toLowerCase().includes(lFilter)
+        );
+
+    })
 
     return (<TableContainer component={Paper}>
         <Table stickyHeader size='small'>
@@ -12,7 +24,7 @@ export default function ProductTable({products, onRowClick}) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                     <TableRow
                         key={product.name}
                         sx={{
