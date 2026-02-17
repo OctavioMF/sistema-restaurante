@@ -7,9 +7,8 @@ export default function ProductSearch() {
         placeholder="Buscar producto..."
         variant="outlined"
         sx={{
-            backgroundColor: '#2d2d2d',
-            input: { color: 'white' },
-            '& .MuiOutlinedInput-notchedOutline': { borderColor: '#444' }
+            input: {},
+            '& .MuiOutlinedInput-notchedOutline': {}
         }}
     />)
 }

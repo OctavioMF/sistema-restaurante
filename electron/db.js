@@ -10,9 +10,11 @@ const db = new Database(dbPath, { verbose: console.log }); // verbose para ver l
 const migration = `
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        code TEXT NOT NULL,
         name TEXT UNIQUE,
         price REAL,
-        stock INTEGER
+        stock INTEGER,
+        lote INTEGER NOT NULL
     );
 `;
 db.exec(migration);
@@ -20,7 +22,7 @@ db.exec(migration);
 // 3. Insertar datos iniciales si está vacío
 const count = db.prepare('SELECT count(*) as count FROM products').get().count;
 if (count === 0) {
-    const insert = db.prepare('INSERT INTO products (name, price, stock) VALUES (@name, @price, @stock)');
+    const insert = db.prepare('INSERT INTO products (code, name, price, stock, lote) VALUES (@code ,@name, @price, @stock, @lote)');
 
     // better-sqlite3 permite transacciones súper fáciles
     const insertMany = db.transaction((products) => {
@@ -28,9 +30,16 @@ if (count === 0) {
     });
 
     insertMany([
-        { name: 'CocaCola', price: 500, stock: 100 },
-        { name: 'Leche', price: 200, stock: 50 },
-        { name: 'Queso cremoso', price: 278, stock: 20 },
+        { code: 'ELEC-001', name: 'Monitor Gamer 24" LED', price: 185000.50, stock: 15, lote: 202401 },
+        { code: 'ELEC-002', name: 'Teclado Mecánico RGB', price: 45000.00, stock: 8, lote: 202401 },
+        { code: 'OFFI-001', name: 'Silla Ergonómica Pro', price: 120000.00, stock: 5, lote: 202305 },
+        { code: 'OFFI-002', name: 'Escritorio Elevable Madera', price: 310000.99, stock: 3, lote: 202305 },
+        { code: 'CABL-001', name: 'Cable HDMI 2.1 - 2mts', price: 8500.00, stock: 50, lote: 202402 },
+        { code: 'CABL-002', name: 'Adaptador USB-C a Jack', price: 4200.50, stock: 100, lote: 202402 },
+        { code: 'STOR-001', name: 'Disco SSD 1TB NVMe', price: 95000.00, stock: 12, lote: 202401 },
+        { code: 'STOR-002', name: 'Pendrive 64GB Metal', price: 7500.00, stock: 200, lote: 202403 },
+        { code: 'PERI-001', name: 'Mouse Inalámbrico Silent', price: 12500.00, stock: 25, lote: 202401 },
+        { code: 'PERI-002', name: 'Webcam Full HD 1080p', price: 35000.00, stock: 0, lote: 202401 }
     ]);
     console.log('Datos iniciales insertados con éxito.');
 }

@@ -11,14 +11,12 @@ export default function PaymentSection({ products, onRowClick }) {
 
         {/* Método de Pago */}
         <Box>
-            <Typography variant="caption" color="gray">Método de Pago:</Typography>
+            <Typography variant="caption">Método de Pago:</Typography>
             <FormControl fullWidth size="small" sx={{ mt: 1 }}>
                 <Select
                     defaultValue="Efectivo"
                     sx={{
-                        color: 'white',
-                        backgroundColor: '#333',
-                        '.MuiSvgIcon-root': { color: 'white' }
+                        '.MuiSvgIcon-root': {}
                     }}
                 >
                     <MenuItem value="Efectivo">Efectivo</MenuItem>
@@ -28,22 +26,17 @@ export default function PaymentSection({ products, onRowClick }) {
         </Box>
 
         {/* Total Gigante */}
-        <Typography variant="h4" align="center" sx={{ color: '#4caf50', fontWeight: 'bold', letterSpacing: 1 }}>
+        <Typography variant="h4" align="center"  sx={{fontWeight: 'bold', letterSpacing: 1 }}>
             TOTAL: {calculateTotal.toFixed(2)}
         </Typography>
 
         {/* Botones de Acción */}
-        <Button variant="contained" color="success" size="large" sx={{ py: 1.5, fontWeight: 'bold', backgroundColor: '#00a100' }}>
+        <Button variant="contained" color="success" size="large" sx={{ py: 1.5, fontWeight: 'bold'}}>
             COBRAR (F5)
         </Button>
 
-        <Button variant="contained" color="error" sx={{ backgroundColor: '#d32f2f' }}>
+        <Button variant="contained" color="error" sx={{}}>
             Cancelar Venta
         </Button>
-
-        <Button variant="contained" sx={{ backgroundColor: '#b71c1c', mt: 1 }}>
-            CERRAR CAJA
-        </Button>
-
     </Stack>)
 }

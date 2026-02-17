@@ -18,7 +18,7 @@ export default function ProductTable({products, onRowClick}) {
                         sx={{
                             cursor:'pointer',
                             userSelect: 'none',
-                            '&:last-child td, &:last-child th': { border: 0 } }}
+                            '&:last-child td, &:last-child th': {} }}
                         hover
                         onClick={() => {onRowClick(product.name)}}
                     >
