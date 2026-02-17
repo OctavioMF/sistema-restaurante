@@ -4,7 +4,7 @@ import Layout from "./Common/Layout";
 import StockPage from "./Products/Stock/StockPage";
 import ThemeContext from "./Common/ThemeContext";
 
-const Dashboard = () => <h1>Dashboard Principal</h1>;
+const Dashboard = () => <h1>Reportes Principal</h1>;
 const Mesas = () => <h1>Gestión de Mesas</h1>;
 
 export default function App() {

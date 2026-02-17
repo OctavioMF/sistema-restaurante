@@ -1,7 +1,7 @@
 // electron/main.js
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { obtenerProductos, actualizarStock } = require('./db');
+const { getProducts, updateStock, createProduct} = require('./db');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -31,7 +31,7 @@ app.whenReady().then(()=>{
 
     ipcMain.handle('get-products', (event) => {
         try {
-            return obtenerProductos();
+            return getProducts();
         } catch (err) {
             console.error("Error DB:", err);
             return [];
@@ -40,11 +40,21 @@ app.whenReady().then(()=>{
 
     ipcMain.handle('update-stock', (event, name, newStock) => {
         try {
-            const cambios = actualizarStock(name, newStock);
+            const cambios = updateStock(name, newStock);
             return { success: true, changes: cambios };
         } catch (err) {
             console.error("Error DB:", err);
             return { success: false, error: err.message };
         }
     });
+
+    ipcMain.handle('create-product', (event,product) => {
+        try {
+            const cambios = createProduct(product);
+            return { success: true, changes: cambios };
+        } catch (err) {
+            console.error("Error DB:", err);
+            return { success: false, error: err.message };
+        }
+    })
 });

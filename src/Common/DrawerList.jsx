@@ -16,7 +16,7 @@ const menuItems = [
         ]
     },
     {
-        title: 'Dashboard',
+        title: 'Reportes',
         path: '/',
         children: []
     }
