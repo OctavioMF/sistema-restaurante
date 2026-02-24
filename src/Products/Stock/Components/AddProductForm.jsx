@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField, Stack, Grid } from "@mui/material";
 
-const { ipcRenderer } = window.require('electron');
-
 export default function AddProductForm({ onClose }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        ipcRenderer.invoke("create-product", data);
+        window.api.createProduct("create-product", data);
     };
 
     return (

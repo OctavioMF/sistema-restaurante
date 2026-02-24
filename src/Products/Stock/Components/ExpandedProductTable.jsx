@@ -2,8 +2,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import {useEffect, useState} from "react";
 
-const { ipcRenderer } = window.require('electron');
-
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'code', headerName: 'Codigo', width: 130 },
@@ -26,7 +24,6 @@ const columns = [
         type: 'number',
         width: 90,
     },
-
 ];
 
 const paginationModel = { page: 0, pageSize: 5 };
@@ -39,7 +36,7 @@ export default function ExpandedProductTable({filter}) {
     }, []);
 
     const loadProducts = async () => {
-        const productsDb = await ipcRenderer.invoke('get-products');
+        const productsDb = await window.api.getProducts();
         setProducts(productsDb);
     };
 

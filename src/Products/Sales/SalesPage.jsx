@@ -6,8 +6,6 @@ import {Box, Grid, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ProductSearch from "../../Common/ProductSearch";
 
-const { ipcRenderer } = window.require('electron');
-
 export default function SalesPage() {
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [products, setProducts] = useState([]);
@@ -22,7 +20,7 @@ export default function SalesPage() {
     }
 
     const loadProducts = async () => {
-        const productsDb = await ipcRenderer.invoke('get-products');
+        const productsDb = await window.api.getProducts();
         setProducts(productsDb);
     };
 
@@ -59,7 +57,7 @@ export default function SalesPage() {
             });
             setProducts(newProducts);
 
-            ipcRenderer.invoke('update-stock', productName, nuevoStock);
+            window.api.updateStock(productName, nuevoStock);
 
             const productExists = selectedProducts.find(p => p.name === productName);
             if(productExists) {
