@@ -1,7 +1,8 @@
 // electron/main.js
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { getProducts, updateStock, createProduct} = require('./db');
+const initDB = require("./backend/database/init");
+const {getProducts, createProduct, updateStock} = require("./backend/controllers/productController");
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -10,8 +11,9 @@ function createWindow() {
         autoHideMenuBar: true,
         show: false,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: false,
+            contextIsolation: true,
         },
     });
 
@@ -27,34 +29,11 @@ function createWindow() {
 }
 
 app.whenReady().then(()=>{
-    createWindow()
+    initDB().then(r => {
+        ipcMain.handle('get-products', getProducts)
+        ipcMain.handle('create-product', createProduct);
+        ipcMain.handle('update-stock', updateStock);
 
-    ipcMain.handle('get-products', (event) => {
-        try {
-            return getProducts();
-        } catch (err) {
-            console.error("Error DB:", err);
-            return [];
-        }
-    });
-
-    ipcMain.handle('update-stock', (event, name, newStock) => {
-        try {
-            const cambios = updateStock(name, newStock);
-            return { success: true, changes: cambios };
-        } catch (err) {
-            console.error("Error DB:", err);
-            return { success: false, error: err.message };
-        }
-    });
-
-    ipcMain.handle('create-product', (event,product) => {
-        try {
-            const cambios = createProduct(product);
-            return { success: true, changes: cambios };
-        } catch (err) {
-            console.error("Error DB:", err);
-            return { success: false, error: err.message };
-        }
+        createWindow()
     })
 });
