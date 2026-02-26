@@ -1,11 +1,22 @@
 import { useForm } from "react-hook-form";
-import { Box, Button, TextField, Stack, Grid } from "@mui/material";
+import {Box, Button, TextField, Stack, Select, MenuItem} from "@mui/material";
+import {useEffect, useState} from "react";
 
 export default function AddProductForm({ onClose }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [categories, setCategories] = useState([]);
 
-    const onSubmit = (data) => {
-        window.api.createProduct("create-product", data);
+    useEffect(() => {
+        window.api.getAllCategories().then(response => {
+            console.log(response);
+            setCategories(response);
+        }).catch(error => {
+            console.log(error);
+        })
+    }, []);
+
+    const onSubmit = async (data) => {
+        await window.api.createProduct(data);
     };
 
     return (
@@ -14,20 +25,25 @@ export default function AddProductForm({ onClose }) {
 
                 <Stack direction="row" spacing={2}>
                     <TextField
-                        label="Código (Ej: ELEC-001)"
+                        label="Codigo de Barras"
                         fullWidth
-                        {...register("code", { required: "El código es obligatorio" })}
+                        {...register("barcode", { required: "El código es obligatorio" })}
                         error={!!errors.code}
                         helperText={errors.code?.message}
                     />
-                    <TextField
-                        label="Lote"
-                        type="number"
+
+                    <Select
                         fullWidth
-                        {...register("lote", { required: "Requerido" })}
-                        error={!!errors.lote}
-                        helperText={errors.lote?.message}
-                    />
+                        {...register("category_id", { required: "Requerido" })}
+                        error={!!errors.category_id}
+                        defaultValue={""}
+                    >
+                        {categories?.map((cat)=>(
+                            <MenuItem key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
                 </Stack>
 
                 <TextField

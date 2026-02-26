@@ -9,7 +9,7 @@ export default function ProductTable({products, onRowClick, filter}) {
 
         return (
             products.name.toLowerCase().includes(lFilter) ||
-            products.code.toLowerCase().includes(lFilter)
+            products.barcode.toLowerCase().includes(lFilter)
         );
 
     })

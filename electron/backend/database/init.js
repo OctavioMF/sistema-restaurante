@@ -71,6 +71,7 @@ const initDB = async () => {
         "name" VARCHAR NOT NULL,
         PRIMARY KEY ( "id")
         );
+    
 `;
 
     db.exec(sql);

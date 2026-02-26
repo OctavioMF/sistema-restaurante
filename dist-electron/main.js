@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const initDB = require("./backend/database/init");
 const { getProducts, createProduct, updateStock } = require("./backend/controllers/productController");
+const { getAllCategories } = require("./backend/controllers/categoryController");
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
@@ -28,6 +29,7 @@ app.whenReady().then(() => {
     ipcMain.handle("get-products", getProducts);
     ipcMain.handle("create-product", createProduct);
     ipcMain.handle("update-stock", updateStock);
+    ipcMain.handle("getAllCategories", getAllCategories);
     createWindow();
   });
 });

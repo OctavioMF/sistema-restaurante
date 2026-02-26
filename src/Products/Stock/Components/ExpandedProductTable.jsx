@@ -4,8 +4,9 @@ import {useEffect, useState} from "react";
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'code', headerName: 'Codigo', width: 130 },
-    { field: 'name', headerName: 'Nombre', width: 130 },
+    { field: 'barcode', headerName: 'Codigo de Barras', width: 130 },
+    { field: 'category_name', headerName: 'Categoria', width: 130 },
+    { field: 'name', headerName: 'Nombre', width: 250 },
     {
         field: 'price',
         headerName: 'Precio',
@@ -15,12 +16,6 @@ const columns = [
     {
         field: 'stock',
         headerName: 'Stock',
-        type: 'number',
-        width: 90,
-    },
-    {
-        field: 'lote',
-        headerName: 'Lote',
         type: 'number',
         width: 90,
     },
@@ -37,7 +32,7 @@ export default function ExpandedProductTable({filter}) {
 
     const loadProducts = async () => {
         const productsDb = await window.api.getProducts();
-        setProducts(productsDb);
+        setProducts(productsDb || []);
     };
 
     const filteredProducts = products.filter((products) => {
@@ -47,7 +42,7 @@ export default function ExpandedProductTable({filter}) {
 
         return (
             products.name.toLowerCase().includes(lFilter) ||
-            products.code.toLowerCase().includes(lFilter)
+            products.barcode.toLowerCase().includes(lFilter)
         );
 
     })
