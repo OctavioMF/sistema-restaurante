@@ -10,7 +10,7 @@ export default function TableCard({ table, tableClick}) {
                         {"Mesa N°"+table.table_number}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {table.capacity}
+                        {table.status}
                     </Typography>
                 </CardContent>
             </CardActionArea>
