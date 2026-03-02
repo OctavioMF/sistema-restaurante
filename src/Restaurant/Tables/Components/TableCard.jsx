@@ -1,10 +1,10 @@
 import {Card, CardActionArea, CardContent} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-export default function TableCard({ table }) {
+export default function TableCard({ table, tableClick}) {
     return (
         <Card>
-            <CardActionArea>
+            <CardActionArea onClick={()=>tableClick(table)}>
                 <CardContent >
                     <Typography variant="h5" component="div">
                         {"Mesa N°"+table.table_number}
