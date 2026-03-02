@@ -19,7 +19,7 @@ export default function TablesPage() {
 
     const table = {
         table_number: 2,
-        capacity: 3,
+        status: 'ocupado',
     }
 
     const tables = Array(10).fill(table);
