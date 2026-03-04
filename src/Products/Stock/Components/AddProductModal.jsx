@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import React from "react";
+import {useState} from "react";
 import AddProductForm from "./AddProductForm";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
@@ -16,7 +16,7 @@ const style = {
 };
 
 export default function AddProductModal(props) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 

@@ -34,7 +34,7 @@ export default function TablesPage() {
                 ))}
             </Grid>
 
-            <TableDrawer table={selectedTable} isOpen={isDrawerOpen} onCloseDrawer={handleCloseDrawer} />
+            <TableDrawer table={selectedTable} isDrawerOpen={isDrawerOpen} onCloseDrawer={handleCloseDrawer} />
         </>
     )
 }
